@@ -48,6 +48,7 @@ export interface QuickRepliesProps {
   color?: string
   sendText?: string
   quickReplyStyle?: StyleProp<ViewStyle>
+  quickReplyTextStyle?: StyleProp<ViewStyle>
   onQuickReply?(reply: Reply[]): void
   renderQuickReplySend?(): React.ReactNode
 }
@@ -76,6 +77,7 @@ export default class QuickReplies extends Component<
     keepReplies: false,
     renderQuickReplySend: undefined,
     quickReplyStyle: undefined,
+    quickReplyTextStyle: undefined,
   }
 
   static propTypes = {
@@ -86,6 +88,7 @@ export default class QuickReplies extends Component<
     keepReplies: PropTypes.bool,
     renderQuickReplySend: PropTypes.func,
     quickReplyStyle: StylePropType,
+    quickReplyTextStyle: StylePropType,
   }
 
   state = {
@@ -168,7 +171,7 @@ export default class QuickReplies extends Component<
   }
 
   render() {
-    const { currentMessage, color, quickReplyStyle } = this.props
+    const { currentMessage, color, quickReplyStyle, quickReplyTextStyle } = this.props
     const { replies } = this.state
 
     if (!this.shouldComponentDisplay()) {
@@ -199,6 +202,7 @@ export default class QuickReplies extends Component<
                   ellipsizeMode={'tail'}
                   style={[
                     styles.quickReplyText,
+                    quickReplyTextStyle,
                     { color: selected ? Color.white : color },
                   ]}
                 >
